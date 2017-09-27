@@ -10,15 +10,14 @@ public class Mainframe extends Frame {
     private Button BtnSub = new Button("SUB");
     private Button Btnexit = new Button("EXIT");
     private Label lb = new Label("0.0");
-    private int n=0, lbx=30,lby=60;
+    private int n=0, lbx=25,lby=60;
     private Timer t1;
-    private int Width=500;
     private boolean flag=true;
    public Mainframe(){
        init();
    }
    private void init(){
-       this.setBounds(100,100,Width,400);
+       this.setBounds(100,100,500,400);
        addWindowListener(new WindowAdapter() {
            @Override
            public void windowClosing(WindowEvent e) {
@@ -26,11 +25,11 @@ public class Mainframe extends Frame {
            }
        });
        this.setLayout(null);
-       BtnAdd.setBounds(70,200,60,40);
+       BtnAdd.setBounds(140,270,60,40);
        this.add(BtnAdd);
        lb.setBounds(lbx,lby,50,30 );
        this.add( lb);
-       BtnSub.setBounds(140,200,60,40);
+       BtnSub.setBounds(280,270,60,40);
        this.add(BtnSub);
        Mainframe.this.setTitle("0.0");
        BtnAdd.addActionListener(new ActionListener() {
@@ -46,9 +45,10 @@ public class Mainframe extends Frame {
            public void actionPerformed(ActionEvent e) {
               // lb.setText(Integer.toString(--n));
                Mainframe.this.setTitle(Integer.toString(--n));
+               t1.stop();
            }
        });
-       Btnexit.setBounds(210,200,60,40);
+       Btnexit.setBounds(210,270,60,40);
        this.add(Btnexit);
        Btnexit.addActionListener(new ActionListener() {
            @Override
@@ -56,21 +56,26 @@ public class Mainframe extends Frame {
             System.exit(0);
            }
        });
-
-   t1 = new Timer(300, new ActionListener() {
+         lb.setAlignment(Label.CENTER);
+   t1 = new Timer(200, new ActionListener() {
        @Override
        public void actionPerformed(ActionEvent e) {
-    if(lb.getX()>Mainframe.this.getWidth()-35){
+         int c=lb.getX();
+    if(lb.getX()>Mainframe.this.getWidth()-75){
       flag=false;
     }
-    else if(lb.getX()<0){
+    else if(lb.getX()<15){
      flag=true;
     }
     if(flag==true){
-
-        lb.setLocation(lb.getX()+25, lby);
+         lb.setText(Integer.toString(lb.getX())+","+Integer.toString(lb.getY()));
+        lb.setLocation(lb.getX()+20, lb.getY());
+        lb.setBackground(new Color(255,c/=2,c/=2));
     }else{
-        lb.setLocation(lb.getX()-25, lby);
+        lb.setText(Integer.toString(lb.getX())+","+Integer.toString(lb.getY()));
+        lb.setLocation(lb.getX()-20, lb.getY());
+       lb.setBackground(new Color(255,c/=2,c/=2));
+
     }
 
 
